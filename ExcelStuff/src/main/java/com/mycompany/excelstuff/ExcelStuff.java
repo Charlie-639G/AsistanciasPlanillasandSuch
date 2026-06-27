@@ -230,6 +230,30 @@ static String Usuarios = "Usuarios", Empleados = "Empleados", Asistencias = "Asi
      return horasChambeadas;
      }
      
+     public int UltimaIDAsistencia(){
+         String result;
+         int i=0;
+         int resultInt = 0,resultInttemp = 0; 
+         int RInum=0, Cinum = 0; 
+
+         try(FileInputStream fis = new FileInputStream(DATAPATH);
+                     Workbook wb = WorkbookFactory.create(fis);) {
+         while(i != 6){
+            RInum +=1;
+            Sheet s = wb.getSheet(Asistencias);
+            Row r = s.getRow(RInum);
+            Cell c = r.getCell(Cinum); 
+            DataFormatter FormatCell = new DataFormatter(); 
+            result = FormatCell.formatCellValue(c);
+            resultInt = Integer.parseInt(result);
+            resultInttemp = resultInt;}
+         } catch (Exception e) {
+                 System.out.println("Ultimo ID Asistencia " + resultInt);
+                 i = 6;
+             }
+         return resultInt;
+     }
+     
   public int UltimaIDEmpleado(){
          String result;
          int i=0;
@@ -255,6 +279,7 @@ static String Usuarios = "Usuarios", Empleados = "Empleados", Asistencias = "Asi
      }
          
      }   
+
 
     
 

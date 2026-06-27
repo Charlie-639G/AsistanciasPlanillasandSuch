@@ -7,6 +7,7 @@ import com.mycompany.excelstuff.ExcelStuff;
 import com.LoginStuff.login.LoginStuff;
 import java.util.concurrent.TimeUnit;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -31,7 +32,7 @@ boolean IDmodificar = false;
         initComponents();
         InitInfoEmpleado(RegActualID);
         desactivaractivarnewUser(false); 
-        
+        TablaAsistencia();
     }
     public void desactivaractivarnewUser(boolean truefalse){ //True = Mostrar False = Ocultar
         txtcontraseña.setText("");
@@ -110,6 +111,26 @@ boolean IDmodificar = false;
         CkActivo.setState(false);
     }
     
+    private void TablaAsistencia() {
+
+    DefaultTableModel modelo = (DefaultTableModel) Tabla_control.getModel();
+    modelo.setRowCount(0);
+
+    for (int fila = 1; fila <= objv3.UltimaIDAsistencia(); fila++) {
+
+        modelo.addRow(new Object[]{
+
+            objv3.ReadExcelFile(Asistencias, fila, 0),
+            objv3.ReadExcelFile(Asistencias, fila, 1),
+            objv3.ReadExcelFile(Asistencias, fila, 2),
+            objv3.ReadExcelFile(Asistencias, fila, 3),
+            objv3.ReadExcelFile(Asistencias, fila, 4),
+            objv3.ReadExcelFile(Asistencias, fila, 5)
+
+        });
+    }
+}
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -168,13 +189,10 @@ boolean IDmodificar = false;
         jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        Tabla_control = new javax.swing.JTable();
         jPanel6 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        jPanel7 = new javax.swing.JPanel();
-        textField1 = new java.awt.TextField();
-        jButton4 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -191,23 +209,18 @@ boolean IDmodificar = false;
         jPanel2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
 
         jLabel4.setFont(new java.awt.Font("Modern No. 20", 0, 16)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("ID Empleado: ");
 
         jLabel5.setFont(new java.awt.Font("Modern No. 20", 0, 16)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Departamento:");
 
         jLabel6.setFont(new java.awt.Font("Modern No. 20", 0, 16)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Nombre Empleado");
 
         jLabel7.setFont(new java.awt.Font("Modern No. 20", 0, 16)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("Cargo");
 
         jLabel8.setFont(new java.awt.Font("Modern No. 20", 0, 16)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setText("Dirección:");
 
         CkActivo.setLabel("Activo");
@@ -226,7 +239,6 @@ boolean IDmodificar = false;
         TxtID_Empleado.setText("textField1");
 
         CmboxDepartamento.setBackground(new java.awt.Color(204, 204, 204));
-        CmboxDepartamento.setForeground(new java.awt.Color(0, 0, 0));
         CmboxDepartamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Test", "Limpieza", "Recursos humanos", "Profesores", " " }));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -285,17 +297,13 @@ boolean IDmodificar = false;
                 .addGap(20, 20, 20))
         );
 
-        jLabel2.setIcon(new javax.swing.ImageIcon("C:\\Github\\AsistanciasPlanillasandSuch\\ExcelStuff\\src\\main\\java\\imagenes\\png_de_logo.png")); // NOI18N
-
         jLabel3.setFont(new java.awt.Font("Mongolian Baiti", 0, 24)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Información del Empleado");
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)), "Información Adicional", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 14), new java.awt.Color(0, 0, 0))); // NOI18N
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)), "Información Adicional", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 14))); // NOI18N
 
         jLabel10.setFont(new java.awt.Font("Modern No. 20", 0, 16)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(0, 0, 0));
         jLabel10.setText("Telefono:");
 
         TxtTelefono.setEditable(false);
@@ -303,7 +311,6 @@ boolean IDmodificar = false;
         TxtTelefono.addActionListener(this::TxtTelefonoActionPerformed);
 
         jLabel11.setFont(new java.awt.Font("Modern No. 20", 0, 16)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(0, 0, 0));
         jLabel11.setText("Cedula");
 
         TxtNombreUsuario.setEditable(false);
@@ -311,7 +318,6 @@ boolean IDmodificar = false;
         TxtNombreUsuario.addActionListener(this::TxtNombreUsuarioActionPerformed);
 
         jLabel12.setFont(new java.awt.Font("Modern No. 20", 0, 16)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(0, 0, 0));
         jLabel12.setText("Hora de Entrada");
 
         TxtCedula.setEditable(false);
@@ -319,7 +325,6 @@ boolean IDmodificar = false;
         TxtCedula.addActionListener(this::TxtCedulaActionPerformed);
 
         LbUsername.setFont(new java.awt.Font("Modern No. 20", 0, 16)); // NOI18N
-        LbUsername.setForeground(new java.awt.Color(0, 0, 0));
         LbUsername.setText("Nombre del usuario:");
         LbUsername.setFocusable(false);
 
@@ -328,7 +333,6 @@ boolean IDmodificar = false;
         TxtHoraEntrada.addActionListener(this::TxtHoraEntradaActionPerformed);
 
         lbcontraseña.setFont(new java.awt.Font("Modern No. 20", 0, 16)); // NOI18N
-        lbcontraseña.setForeground(new java.awt.Color(0, 0, 0));
         lbcontraseña.setText("Contraseña");
 
         txtcontraseña.setEditable(false);
@@ -356,7 +360,6 @@ boolean IDmodificar = false;
         jButton7.addActionListener(this::jButton7ActionPerformed);
 
         jLabel13.setFont(new java.awt.Font("Modern No. 20", 0, 16)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(0, 0, 0));
         jLabel13.setText("Correo Electronico");
 
         TxtCorreo.setEditable(false);
@@ -364,7 +367,6 @@ boolean IDmodificar = false;
         TxtCorreo.addActionListener(this::TxtCorreoActionPerformed);
 
         jLabel14.setFont(new java.awt.Font("Modern No. 20", 0, 16)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(0, 0, 0));
         jLabel14.setText("Salario Base");
 
         txtsalario.setEditable(false);
@@ -372,7 +374,6 @@ boolean IDmodificar = false;
         txtsalario.addActionListener(this::txtsalarioActionPerformed);
 
         jLabel15.setFont(new java.awt.Font("Modern No. 20", 0, 16)); // NOI18N
-        jLabel15.setForeground(new java.awt.Color(0, 0, 0));
         jLabel15.setText("Antigüedad");
 
         txtantiguedad.setEditable(false);
@@ -483,29 +484,24 @@ boolean IDmodificar = false;
         jPanel8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
 
         BtnGuardar.setBackground(new java.awt.Color(204, 204, 204));
-        BtnGuardar.setForeground(new java.awt.Color(0, 0, 0));
         BtnGuardar.setText("Guardar");
         BtnGuardar.setEnabled(false);
         BtnGuardar.addActionListener(this::BtnGuardarActionPerformed);
 
         BtnNuevo.setBackground(new java.awt.Color(204, 204, 204));
-        BtnNuevo.setForeground(new java.awt.Color(0, 0, 0));
         BtnNuevo.setText("Nuevo");
         BtnNuevo.addActionListener(this::BtnNuevoActionPerformed);
 
         btnModificar.setBackground(new java.awt.Color(204, 204, 204));
-        btnModificar.setForeground(new java.awt.Color(0, 0, 0));
         btnModificar.setText("Modificar");
         btnModificar.addActionListener(this::btnModificarActionPerformed);
 
         btmCancelar.setBackground(new java.awt.Color(204, 204, 204));
-        btmCancelar.setForeground(new java.awt.Color(0, 0, 0));
         btmCancelar.setText("Cancel");
         btmCancelar.setEnabled(false);
         btmCancelar.addActionListener(this::btmCancelarActionPerformed);
 
         Btnsignout.setBackground(new java.awt.Color(204, 204, 204));
-        Btnsignout.setForeground(new java.awt.Color(0, 0, 0));
         Btnsignout.setText("Cerrar Sesion");
         Btnsignout.addActionListener(this::BtnsignoutActionPerformed);
 
@@ -585,28 +581,28 @@ boolean IDmodificar = false;
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
         jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jTable1.setBackground(new java.awt.Color(204, 204, 204));
-        jTable1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        Tabla_control.setBackground(new java.awt.Color(204, 204, 204));
+        Tabla_control.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        Tabla_control.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "ID_Empleado", "Nombre ", "Title 3", "Title 4"
+                "ID_Asistencia", "ID_Empleado ", "Fecha_Asistencia", "Hora_Entrada", "Hora_Salida", "Estado"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(Tabla_control);
 
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -675,40 +671,7 @@ boolean IDmodificar = false;
 
         jTabbedPane1.addTab("Control de Asistencia", jPanel4);
 
-        jPanel7.setBackground(new java.awt.Color(255, 255, 255));
-
-        textField1.setText("textField1");
-        textField1.addActionListener(this::textField1ActionPerformed);
-
-        jButton4.setText("jButton4");
-        jButton4.addActionListener(this::jButton4ActionPerformed);
-
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(117, 117, 117)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton4)
-                    .addComponent(textField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(1064, Short.MAX_VALUE))
-        );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(127, 127, 127)
-                .addComponent(textField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(44, 44, 44)
-                .addComponent(jButton4)
-                .addContainerGap(497, Short.MAX_VALUE))
-        );
-
-        jTabbedPane1.addTab("Debug", jPanel7);
-
         getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 1260, 750));
-
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Github\\AsistanciasPlanillasandSuch\\ExcelStuff\\src\\main\\java\\imagenes\\Fondo_FormularioAsistenciaPermiso.jpg")); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1280, 770));
         jLabel1.getAccessibleContext().setAccessibleName("backgroundthing");
 
@@ -742,14 +705,6 @@ boolean IDmodificar = false;
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        String ID_Empleado; 
-    }//GEN-LAST:event_jButton4ActionPerformed
-
-    private void textField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textField1ActionPerformed
 
     private void BtnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnNuevoActionPerformed
         desactivaractivarnewUser(true);
@@ -1023,6 +978,7 @@ boolean IDmodificar = false;
     private java.awt.Checkbox CkISadmin;
     private javax.swing.JComboBox<String> CmboxDepartamento;
     private javax.swing.JLabel LbUsername;
+    private javax.swing.JTable Tabla_control;
     private java.awt.TextField TxtCargo;
     private java.awt.TextField TxtCedula;
     private java.awt.TextField TxtCorreo;
@@ -1038,7 +994,6 @@ boolean IDmodificar = false;
     private javax.swing.JButton btnsiguiente;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -1060,13 +1015,10 @@ boolean IDmodificar = false;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lbcontraseña;
-    private java.awt.TextField textField1;
     private java.awt.TextField txtantiguedad;
     private java.awt.TextField txtcontraseña;
     private java.awt.TextField txtsalario;
