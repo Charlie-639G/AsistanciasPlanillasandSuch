@@ -1,0 +1,1074 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ */
+package com.Adminpackage.Admin;
+import com.mycompany.excelstuff.ExcelStuff;
+import com.LoginStuff.login.LoginStuff;
+import java.util.concurrent.TimeUnit;
+import javax.swing.JOptionPane;
+
+/**
+ *
+ * @author Sarel
+ */
+public class Principalv2 extends javax.swing.JFrame {
+    ExcelStuff objv3 = new ExcelStuff();
+    LoginStuff Logv3 = new LoginStuff();
+    static String Usuarios = "Usuarios", Empleados = "Empleados", Asistencias = "Asistencias", Planilla = "Planilla"; 
+    static int  idEmpleado =0, NombreEmpleado =1, cedula = 2, direccion = 3, telefono=4, ID_DepartamentoEmpleado = 5, horaentradaSEmpleado =6, Antiguedad = 7, SalarioBase = 8, 
+            correo = 9, cargo =10, IsActiveEm = 11;
+    public int RegActualID = Integer.parseInt(objv3.ReadExcelFile(Usuarios, 6, 8)), UltimaID = (objv3.UltimaIDEmpleado());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Principalv2.class.getName());
+    
+    public String ForFecha = "dd/mm/aaaa h:mm", ForFechaShort = "h:mm", General ="General", moneda = "#.##0 €;-#.##0 €";
+    
+boolean IDmodificar = false;
+    /**
+     * Creates new form NewJFrame
+     */
+    public Principalv2() { /*Load equivalent */
+        initComponents();
+        InitInfoEmpleado(RegActualID);
+        desactivaractivarnewUser(false); 
+        
+    }
+    public void desactivaractivarnewUser(boolean truefalse){ //True = Mostrar False = Ocultar
+        txtcontraseña.setText("");
+        TxtNombreUsuario.setText("");
+        txtcontraseña.setEditable(truefalse);
+        TxtNombreUsuario.setEditable(truefalse);
+        txtcontraseña.setVisible(truefalse);
+        TxtNombreUsuario.setVisible(truefalse);
+        lbcontraseña.setVisible(truefalse);
+        LbUsername.setVisible(truefalse);
+        CkISadmin.setVisible(truefalse);
+        CKSowpass2.setVisible(truefalse);
+     
+       
+        
+    }
+    public void desactivaractivarTxtbox(boolean TrueFalse){
+        
+        TxtEmpleado.setEditable(TrueFalse);
+        TxtHoraEntrada.setEditable(TrueFalse);
+        CmboxDepartamento.setEditable(TrueFalse);
+        TxtCargo.setEditable(TrueFalse);
+        TxtDireccionemplo.setEditable(TrueFalse);
+        TxtTelefono.setEditable(TrueFalse);
+        TxtCedula.setEditable(TrueFalse);
+        TxtCorreo.setEditable(TrueFalse);
+        txtsalario.setEditable(TrueFalse);
+        txtantiguedad.setEditable(TrueFalse);
+    }
+    
+    public void InitInfoEmpleado(int ID_usuario) {     
+        ExcelStuff obj = new ExcelStuff();
+         
+        int ID_Departamento = Integer.parseInt(obj.ReadExcelFile(Empleados, ID_usuario, ID_DepartamentoEmpleado)); 
+        TxtID_Empleado.setText(obj.ReadExcelFile(Empleados, ID_usuario, idEmpleado));
+        TxtEmpleado.setText(obj.ReadExcelFile(Empleados, ID_usuario , NombreEmpleado));
+        TxtHoraEntrada.setText(obj.ReadExcelFile(Empleados, ID_usuario, horaentradaSEmpleado));
+        CmboxDepartamento.setSelectedIndex(ID_Departamento);
+        TxtCargo.setText(obj.ReadExcelFile(Empleados, ID_usuario, cargo));
+        TxtDireccionemplo.setText(obj.ReadExcelFile(Empleados, ID_usuario, direccion));
+        TxtCorreo.setText(obj.ReadExcelFile(Empleados, ID_usuario, correo));
+        TxtTelefono.setText(obj.ReadExcelFile(Empleados, ID_usuario, telefono));
+        TxtCedula.setText(obj.ReadExcelFile(Empleados, ID_usuario, cedula));
+        txtsalario.setText(obj.ReadExcelFile(Empleados, ID_usuario, SalarioBase));
+        txtantiguedad.setText(obj.ReadExcelFile(Empleados, ID_usuario, Antiguedad));
+        String Isadmin = obj.ReadExcelFile(Usuarios, ID_usuario, 3), IsactiveString = obj.ReadExcelFile(Empleados, ID_usuario, IsActiveEm);
+        
+        if(IsactiveString == "true"){
+            CkActivo.setState(true);
+        }else{
+        CkActivo.setState(false);
+        }
+       
+        
+        
+        
+        
+    } 
+    public void LimpiarTxbox(){ //Usualmente ocupado para el boton nuevo; 
+        ExcelStuff obj = new ExcelStuff();
+        int idEmpleadonew = UltimaID +1;
+        TxtID_Empleado.setText("" + idEmpleadonew);
+        TxtEmpleado.setText("");
+        TxtHoraEntrada.setText("");
+        CmboxDepartamento.setSelectedIndex(0);
+        TxtCargo.setText("");
+        TxtDireccionemplo.setText("");
+        TxtTelefono.setText("");
+        TxtCedula.setText("");
+        TxtCorreo.setText("");
+        TxtNombreUsuario.setText("");
+        txtcontraseña.setText("");
+        txtsalario.setText("");
+        txtantiguedad.setText("");
+        CkISadmin.setState(false);
+        CkActivo.setState(false);
+    }
+    
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        CkActivo = new java.awt.Checkbox();
+        TxtEmpleado = new java.awt.TextField();
+        TxtCargo = new java.awt.TextField();
+        TxtDireccionemplo = new java.awt.TextField();
+        TxtID_Empleado = new java.awt.TextField();
+        CmboxDepartamento = new javax.swing.JComboBox<>();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel10 = new javax.swing.JLabel();
+        TxtTelefono = new java.awt.TextField();
+        jLabel11 = new javax.swing.JLabel();
+        TxtNombreUsuario = new java.awt.TextField();
+        jLabel12 = new javax.swing.JLabel();
+        TxtCedula = new java.awt.TextField();
+        LbUsername = new javax.swing.JLabel();
+        TxtHoraEntrada = new java.awt.TextField();
+        lbcontraseña = new javax.swing.JLabel();
+        txtcontraseña = new java.awt.TextField();
+        CkISadmin = new java.awt.Checkbox();
+        CKSowpass2 = new java.awt.Checkbox();
+        BtnPrimeroMax = new javax.swing.JButton();
+        btnAnterior = new javax.swing.JButton();
+        btnsiguiente = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
+        jLabel13 = new javax.swing.JLabel();
+        TxtCorreo = new java.awt.TextField();
+        jLabel14 = new javax.swing.JLabel();
+        txtsalario = new java.awt.TextField();
+        jLabel15 = new javax.swing.JLabel();
+        txtantiguedad = new java.awt.TextField();
+        jPanel8 = new javax.swing.JPanel();
+        BtnGuardar = new javax.swing.JButton();
+        BtnNuevo = new javax.swing.JButton();
+        btnModificar = new javax.swing.JButton();
+        btmCancelar = new javax.swing.JButton();
+        Btnsignout = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jPanel6 = new javax.swing.JPanel();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jPanel7 = new javax.swing.JPanel();
+        textField1 = new java.awt.TextField();
+        jButton4 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 255, 255));
+        setBounds(new java.awt.Rectangle(0, 0, 0, 0));
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setForeground(java.awt.Color.white);
+        setResizable(false);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+
+        jLabel4.setFont(new java.awt.Font("Modern No. 20", 0, 16)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel4.setText("ID Empleado: ");
+
+        jLabel5.setFont(new java.awt.Font("Modern No. 20", 0, 16)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel5.setText("Departamento:");
+
+        jLabel6.setFont(new java.awt.Font("Modern No. 20", 0, 16)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel6.setText("Nombre Empleado");
+
+        jLabel7.setFont(new java.awt.Font("Modern No. 20", 0, 16)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel7.setText("Cargo");
+
+        jLabel8.setFont(new java.awt.Font("Modern No. 20", 0, 16)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel8.setText("Dirección:");
+
+        CkActivo.setLabel("Activo");
+
+        TxtEmpleado.setEditable(false);
+        TxtEmpleado.setText("textField1");
+        TxtEmpleado.addActionListener(this::TxtEmpleadoActionPerformed);
+
+        TxtCargo.setEditable(false);
+        TxtCargo.setText("textField1");
+
+        TxtDireccionemplo.setEditable(false);
+        TxtDireccionemplo.setText("textField1");
+
+        TxtID_Empleado.setEditable(false);
+        TxtID_Empleado.setText("textField1");
+
+        CmboxDepartamento.setBackground(new java.awt.Color(204, 204, 204));
+        CmboxDepartamento.setForeground(new java.awt.Color(0, 0, 0));
+        CmboxDepartamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Test", "Limpieza", "Recursos humanos", "Profesores", " " }));
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(TxtID_Empleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addContainerGap(172, Short.MAX_VALUE)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(CmboxDepartamento, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(TxtEmpleado, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 387, Short.MAX_VALUE)
+                            .addComponent(CkActivo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(TxtCargo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 387, Short.MAX_VALUE)
+                            .addComponent(TxtDireccionemplo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 387, Short.MAX_VALUE))
+                        .addContainerGap(221, Short.MAX_VALUE))))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
+                    .addComponent(TxtID_Empleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel6)
+                .addGap(2, 2, 2)
+                .addComponent(TxtEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(4, 4, 4)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(CmboxDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(TxtCargo, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(TxtDireccionemplo, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(CkActivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20))
+        );
+
+        jLabel2.setIcon(new javax.swing.ImageIcon("C:\\Github\\AsistanciasPlanillasandSuch\\ExcelStuff\\src\\main\\java\\imagenes\\png_de_logo.png")); // NOI18N
+
+        jLabel3.setFont(new java.awt.Font("Mongolian Baiti", 0, 24)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel3.setText("Información del Empleado");
+
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)), "Información Adicional", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 14), new java.awt.Color(0, 0, 0))); // NOI18N
+
+        jLabel10.setFont(new java.awt.Font("Modern No. 20", 0, 16)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel10.setText("Telefono:");
+
+        TxtTelefono.setEditable(false);
+        TxtTelefono.setText("textField1");
+        TxtTelefono.addActionListener(this::TxtTelefonoActionPerformed);
+
+        jLabel11.setFont(new java.awt.Font("Modern No. 20", 0, 16)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel11.setText("Cedula");
+
+        TxtNombreUsuario.setEditable(false);
+        TxtNombreUsuario.setText("textField1");
+        TxtNombreUsuario.addActionListener(this::TxtNombreUsuarioActionPerformed);
+
+        jLabel12.setFont(new java.awt.Font("Modern No. 20", 0, 16)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel12.setText("Hora de Entrada");
+
+        TxtCedula.setEditable(false);
+        TxtCedula.setText("textField1");
+        TxtCedula.addActionListener(this::TxtCedulaActionPerformed);
+
+        LbUsername.setFont(new java.awt.Font("Modern No. 20", 0, 16)); // NOI18N
+        LbUsername.setForeground(new java.awt.Color(0, 0, 0));
+        LbUsername.setText("Nombre del usuario:");
+        LbUsername.setFocusable(false);
+
+        TxtHoraEntrada.setEditable(false);
+        TxtHoraEntrada.setText("textField1");
+        TxtHoraEntrada.addActionListener(this::TxtHoraEntradaActionPerformed);
+
+        lbcontraseña.setFont(new java.awt.Font("Modern No. 20", 0, 16)); // NOI18N
+        lbcontraseña.setForeground(new java.awt.Color(0, 0, 0));
+        lbcontraseña.setText("Contraseña");
+
+        txtcontraseña.setEditable(false);
+        txtcontraseña.setText("textField1");
+        txtcontraseña.addActionListener(this::txtcontraseñaActionPerformed);
+
+        CkISadmin.setLabel("Administrador");
+
+        CKSowpass2.setLabel("Mostrar contraseña");
+
+        BtnPrimeroMax.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        BtnPrimeroMax.setText("<<");
+        BtnPrimeroMax.addActionListener(this::BtnPrimeroMaxActionPerformed);
+
+        btnAnterior.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnAnterior.setText("<");
+        btnAnterior.addActionListener(this::btnAnteriorActionPerformed);
+
+        btnsiguiente.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnsiguiente.setText(">");
+        btnsiguiente.addActionListener(this::btnsiguienteActionPerformed);
+
+        jButton7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jButton7.setText(">>");
+        jButton7.addActionListener(this::jButton7ActionPerformed);
+
+        jLabel13.setFont(new java.awt.Font("Modern No. 20", 0, 16)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel13.setText("Correo Electronico");
+
+        TxtCorreo.setEditable(false);
+        TxtCorreo.setText("textField1");
+        TxtCorreo.addActionListener(this::TxtCorreoActionPerformed);
+
+        jLabel14.setFont(new java.awt.Font("Modern No. 20", 0, 16)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel14.setText("Salario Base");
+
+        txtsalario.setEditable(false);
+        txtsalario.setText("textField1");
+        txtsalario.addActionListener(this::txtsalarioActionPerformed);
+
+        jLabel15.setFont(new java.awt.Font("Modern No. 20", 0, 16)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel15.setText("Antigüedad");
+
+        txtantiguedad.setEditable(false);
+        txtantiguedad.setText("textField1");
+        txtantiguedad.addActionListener(this::txtantiguedadActionPerformed);
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel13)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(TxtCorreo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(BtnPrimeroMax, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(27, 27, 27)
+                                .addComponent(btnAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(104, 104, 104)
+                                .addComponent(btnsiguiente, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(34, 34, 34)
+                                .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel10)
+                                    .addComponent(jLabel11))
+                                .addGap(2, 2, 2)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(TxtCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(TxtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel12)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(TxtHoraEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtcontraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(TxtNombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(CkISadmin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(LbUsername)
+                            .addComponent(lbcontraseña)
+                            .addComponent(CKSowpass2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel14)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtsalario, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel15)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtantiguedad, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 1, Short.MAX_VALUE)))
+                .addGap(10, 10, 10))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel10)
+                    .addComponent(TxtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel11)
+                    .addComponent(TxtCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel12)
+                    .addComponent(TxtHoraEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(TxtCorreo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(24, 24, 24)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel14)
+                    .addComponent(txtsalario, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(16, 16, 16)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel15)
+                    .addComponent(txtantiguedad, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(111, 111, 111)
+                .addComponent(LbUsername)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(CkISadmin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(TxtNombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(lbcontraseña)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtcontraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(CKSowpass2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(BtnPrimeroMax, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnsiguiente, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(33, 33, 33))
+        );
+
+        jPanel8.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
+
+        BtnGuardar.setBackground(new java.awt.Color(204, 204, 204));
+        BtnGuardar.setForeground(new java.awt.Color(0, 0, 0));
+        BtnGuardar.setText("Guardar");
+        BtnGuardar.setEnabled(false);
+        BtnGuardar.addActionListener(this::BtnGuardarActionPerformed);
+
+        BtnNuevo.setBackground(new java.awt.Color(204, 204, 204));
+        BtnNuevo.setForeground(new java.awt.Color(0, 0, 0));
+        BtnNuevo.setText("Nuevo");
+        BtnNuevo.addActionListener(this::BtnNuevoActionPerformed);
+
+        btnModificar.setBackground(new java.awt.Color(204, 204, 204));
+        btnModificar.setForeground(new java.awt.Color(0, 0, 0));
+        btnModificar.setText("Modificar");
+        btnModificar.addActionListener(this::btnModificarActionPerformed);
+
+        btmCancelar.setBackground(new java.awt.Color(204, 204, 204));
+        btmCancelar.setForeground(new java.awt.Color(0, 0, 0));
+        btmCancelar.setText("Cancel");
+        btmCancelar.setEnabled(false);
+        btmCancelar.addActionListener(this::btmCancelarActionPerformed);
+
+        Btnsignout.setBackground(new java.awt.Color(204, 204, 204));
+        Btnsignout.setForeground(new java.awt.Color(0, 0, 0));
+        Btnsignout.setText("Cerrar Sesion");
+        Btnsignout.addActionListener(this::BtnsignoutActionPerformed);
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btmCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BtnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Btnsignout, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BtnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(14, Short.MAX_VALUE))
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addGap(43, 43, 43)
+                .addComponent(BtnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(BtnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btmCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 146, Short.MAX_VALUE)
+                .addComponent(Btnsignout, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(62, 62, 62))
+        );
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 522, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(32, 32, 32)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 474, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(59, 59, 59))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(46, 46, 46)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(24, 24, 24))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(81, 81, 81))
+        );
+
+        jTabbedPane1.addTab("Información", jPanel1);
+
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+
+        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        jTable1.setBackground(new java.awt.Color(204, 204, 204));
+        jTable1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "ID_Empleado", "Nombre ", "Title 3", "Title 4"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jTable1);
+
+        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 227, Short.MAX_VALUE)
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 952, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(14, Short.MAX_VALUE))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(56, 56, 56)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 493, Short.MAX_VALUE))
+                .addContainerGap(34, Short.MAX_VALUE))
+        );
+
+        jButton2.setText("imprimir Asistencia");
+        jButton2.addActionListener(this::jButton2ActionPerformed);
+
+        jButton3.setText("Solicitar Planilla");
+        jButton3.addActionListener(this::jButton3ActionPerformed);
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING)))
+                .addContainerGap(22, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(8, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Control de Asistencia", jPanel4);
+
+        jPanel7.setBackground(new java.awt.Color(255, 255, 255));
+
+        textField1.setText("textField1");
+        textField1.addActionListener(this::textField1ActionPerformed);
+
+        jButton4.setText("jButton4");
+        jButton4.addActionListener(this::jButton4ActionPerformed);
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(117, 117, 117)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton4)
+                    .addComponent(textField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(1064, Short.MAX_VALUE))
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(127, 127, 127)
+                .addComponent(textField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(44, 44, 44)
+                .addComponent(jButton4)
+                .addContainerGap(497, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Debug", jPanel7);
+
+        getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 1260, 750));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Github\\AsistanciasPlanillasandSuch\\ExcelStuff\\src\\main\\java\\imagenes\\Fondo_FormularioAsistenciaPermiso.jpg")); // NOI18N
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1280, 770));
+        jLabel1.getAccessibleContext().setAccessibleName("backgroundthing");
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void TxtEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtEmpleadoActionPerformed
+
+    }//GEN-LAST:event_TxtEmpleadoActionPerformed
+
+    private void TxtTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtTelefonoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TxtTelefonoActionPerformed
+
+    private void TxtNombreUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtNombreUsuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TxtNombreUsuarioActionPerformed
+
+    private void TxtCedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtCedulaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TxtCedulaActionPerformed
+
+    private void TxtHoraEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtHoraEntradaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TxtHoraEntradaActionPerformed
+
+    private void txtcontraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtcontraseñaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtcontraseñaActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        String ID_Empleado; 
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void textField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textField1ActionPerformed
+
+    private void BtnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnNuevoActionPerformed
+        desactivaractivarnewUser(true);
+        desactivaractivarTxtbox(true);
+        LimpiarTxbox();
+        BtnNuevo.setEnabled(false);
+        BtnGuardar.setEnabled(true);
+        btmCancelar.setEnabled(true);
+        btnModificar.setEnabled(false);
+    }//GEN-LAST:event_BtnNuevoActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+     // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void BtnPrimeroMaxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnPrimeroMaxActionPerformed
+        RegActualID = 1;
+        InitInfoEmpleado(1);
+    }//GEN-LAST:event_BtnPrimeroMaxActionPerformed
+
+    private void btnAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnteriorActionPerformed
+        if (RegActualID == 1){
+            InitInfoEmpleado(1);
+        }else{
+            RegActualID = RegActualID - 1; 
+        InitInfoEmpleado(RegActualID);
+        }
+        
+    }//GEN-LAST:event_btnAnteriorActionPerformed
+
+    private void btnsiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsiguienteActionPerformed
+ if (RegActualID == objv3.UltimaIDEmpleado()){
+            InitInfoEmpleado(UltimaID);
+        }else{
+            RegActualID = RegActualID + 1; 
+        InitInfoEmpleado(RegActualID);
+        }    }//GEN-LAST:event_btnsiguienteActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        RegActualID = UltimaID;
+        InitInfoEmpleado(UltimaID);
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void BtnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnGuardarActionPerformed
+        int UltimoID = UltimaID + 1;
+        String ID_Empleado = Integer.toString(UltimoID) , 
+                NombreEmpleadoV2 = TxtEmpleado.getText(), 
+                HoraEntrada = TxtHoraEntrada.getText(),
+                Departamento = Integer.toString(CmboxDepartamento.getSelectedIndex()), 
+                Cargo = TxtCargo.getText(),
+                Direccionv2 = TxtDireccionemplo.getText(), 
+                Telefonov2 = TxtTelefono.getText(), 
+                Correov2 = TxtCorreo.getText(), 
+                Cedulav2 = TxtCedula.getText(), 
+                AntiguedadString = txtantiguedad.getText(),
+                SalarioV3  = txtsalario.getText(),
+                NombreUsuario = TxtNombreUsuario.getText(),
+                Contraseña = txtcontraseña.getText(); 
+        boolean IsAdminEmpleado =CkISadmin.getState(), itsActive =CkActivo.getState();
+        String isAdminString = Boolean.toString(IsAdminEmpleado), itsActiveString = Boolean.toString(itsActive);
+        if(isAdminString == "true"){ isAdminString = "2";}else{isAdminString="1";}
+
+        
+        
+        try {
+        if(validadDatos() == true && IDmodificar == false){
+        objv3.WriteExcelFile(Empleados, UltimoID, idEmpleado, ID_Empleado,General);
+        objv3.WriteExcelFile(Empleados, UltimoID, direccion, Direccionv2, General);
+        objv3.WriteExcelFile(Empleados, UltimoID, ID_DepartamentoEmpleado, Departamento, General);
+        objv3.WriteExcelFile(Empleados, UltimoID, cargo, Cargo, General);
+        objv3.WriteExcelFile(Empleados, UltimoID, horaentradaSEmpleado, HoraEntrada, ForFechaShort);
+        objv3.WriteExcelFile(Empleados, UltimoID, telefono , Telefonov2, General);
+        objv3.WriteExcelFile(Empleados, UltimoID, correo , Correov2, General);
+        objv3.WriteExcelFile(Empleados, UltimoID, cedula, Cedulav2, General);
+        objv3.WriteExcelFile(Empleados, UltimoID, NombreEmpleado, NombreEmpleadoV2, General);
+        objv3.WriteExcelFile(Empleados, UltimoID, IsActiveEm , itsActiveString, General);
+        objv3.WriteExcelFile(Empleados, UltimoID, Antiguedad , AntiguedadString, General);
+        objv3.WriteExcelFile(Empleados, UltimoID, SalarioBase , SalarioV3, moneda);
+        objv3.WriteExcelFile(Usuarios, UltimoID, 3, isAdminString, General);
+        objv3.WriteExcelFile(Usuarios, UltimoID, 1, NombreUsuario, General);
+        objv3.WriteExcelFile(Usuarios, UltimoID, 2, Contraseña, General);
+        objv3.WriteExcelFile(Usuarios, UltimoID, 0, ID_Empleado, General);
+        JOptionPane.showMessageDialog(null, "Se a Guardado los datos correctamente");
+        UltimaID +=1;
+        desactivaractivarnewUser(false);
+        desactivaractivarTxtbox(false);
+        InitInfoEmpleado(UltimaID);
+         BtnNuevo.setEnabled(true);
+        btmCancelar.setEnabled(false);
+        btnModificar.setEnabled(true);
+        }else{
+        UltimoID = RegActualID;
+            ID_Empleado = Integer.toString(UltimoID);  
+                NombreEmpleadoV2 = TxtEmpleado.getText(); 
+                HoraEntrada = TxtHoraEntrada.getText();
+                Departamento = Integer.toString(CmboxDepartamento.getSelectedIndex());
+                Cargo = TxtCargo.getText();
+                Direccionv2 = TxtDireccionemplo.getText();
+                Telefonov2 = TxtTelefono.getText();
+                AntiguedadString = txtantiguedad.getText();
+                SalarioV3  = txtsalario.getText();
+                Correov2 = TxtCorreo.getText(); 
+                Cedulav2 = TxtCedula.getText();
+                NombreUsuario = TxtNombreUsuario.getText();
+                Contraseña = txtcontraseña.getText(); 
+        IsAdminEmpleado =CkISadmin.getState(); itsActive =CkActivo.getState();
+        isAdminString = Boolean.toString(IsAdminEmpleado); itsActiveString = Boolean.toString(itsActive);
+        
+        if(isAdminString == "true"){ isAdminString = "2";}else{isAdminString="1";}
+        
+        
+        
+        if(validadDatos() == true){
+        objv3.WriteExcelFile(Empleados, UltimoID, idEmpleado, ID_Empleado,General);
+        objv3.WriteExcelFile(Empleados, UltimoID, direccion, Direccionv2, General);
+        objv3.WriteExcelFile(Empleados, UltimoID, ID_DepartamentoEmpleado, Departamento, General);
+        objv3.WriteExcelFile(Empleados, UltimoID, cargo, Cargo, General);
+        objv3.WriteExcelFile(Empleados, UltimoID, horaentradaSEmpleado, HoraEntrada, ForFecha);
+        objv3.WriteExcelFile(Empleados, UltimoID, telefono , Telefonov2, General);
+        objv3.WriteExcelFile(Empleados, UltimoID, correo , Correov2, General);
+        objv3.WriteExcelFile(Empleados, UltimoID, cedula, Cedulav2, General);
+        objv3.WriteExcelFile(Empleados, UltimoID, NombreEmpleado, NombreEmpleadoV2, General);
+        objv3.WriteExcelFile(Empleados, UltimoID, IsActiveEm , itsActiveString, General);
+        objv3.WriteExcelFile(Empleados, UltimoID, Antiguedad , AntiguedadString, General);
+        objv3.WriteExcelFile(Empleados, UltimoID, SalarioBase , SalarioV3, moneda);
+        objv3.WriteExcelFile(Usuarios, UltimoID, 3, isAdminString, General);
+        objv3.WriteExcelFile(Usuarios, UltimoID, 1, NombreUsuario, General);
+        objv3.WriteExcelFile(Usuarios, UltimoID, 2, Contraseña, General);
+        objv3.WriteExcelFile(Usuarios, UltimoID, 0, ID_Empleado, General);
+        JOptionPane.showMessageDialog(null, "Se a Guardado los datos correctamente");
+        
+        desactivaractivarnewUser(false);
+        desactivaractivarTxtbox(false);
+        InitInfoEmpleado(RegActualID);
+         BtnNuevo.setEnabled(true);
+        btmCancelar.setEnabled(false);
+        btnModificar.setEnabled(true);
+        BtnGuardar.setEnabled(false);
+        }}
+        } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, "No se pudo guardar los datos", "error de guardado", JOptionPane.ERROR_MESSAGE);
+        desactivaractivarnewUser(false);
+        desactivaractivarTxtbox(false);
+        InitInfoEmpleado(UltimaID);
+         BtnNuevo.setEnabled(true);
+        btmCancelar.setEnabled(false);
+        btnModificar.setEnabled(true);
+
+        }   
+    }//GEN-LAST:event_BtnGuardarActionPerformed
+
+    public boolean validadDatos(){
+        if(TxtEmpleado.getText() == null){
+            JOptionPane.showMessageDialog(null, "El nombre del Empleado esta vacio", "Error de Datos", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        if(TxtHoraEntrada.getText() == null){
+            JOptionPane.showMessageDialog(null, "La hora de entrada esta vacio", "Error de Datos", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+       
+        if(TxtCargo.getText() == null){
+            JOptionPane.showMessageDialog(null, "El nombre del Cargo esta vacio", "Error de Datos", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        if(TxtDireccionemplo.getText() == null){
+            JOptionPane.showMessageDialog(null, "La dirección esta vacio", "Error de Datos", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        if(TxtTelefono.getText()== null){
+            JOptionPane.showMessageDialog(null, "El número de telefono esta vacio", "Error de Datos", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        if(TxtCorreo.getText() == null){
+            JOptionPane.showMessageDialog(null, "El Correo esta vacio", "Error de Datos", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        if(TxtCedula.getText() == null){
+            JOptionPane.showMessageDialog(null, "La cedula esta vacia", "Error de Datos", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        if(TxtNombreUsuario.getText() == null){
+            JOptionPane.showMessageDialog(null, "El nombre del usuario esta vacio", "Error de Datos", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        if(txtcontraseña.getText() == null){
+            JOptionPane.showMessageDialog(null, "La contraseña esta vacia", "Error de Datos", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        return true;
+    }
+    
+    private void TxtCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtCorreoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TxtCorreoActionPerformed
+
+    private void btmCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmCancelarActionPerformed
+       desactivaractivarnewUser(false);
+        desactivaractivarTxtbox(false);
+        InitInfoEmpleado(RegActualID);
+        BtnNuevo.setEnabled(true);
+        btmCancelar.setEnabled(false);
+        BtnGuardar.setEnabled(false);
+        btnModificar.setEnabled(true);
+    }//GEN-LAST:event_btmCancelarActionPerformed
+
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+         desactivaractivarnewUser(true);
+        desactivaractivarTxtbox(true);
+        BtnNuevo.setEnabled(false);
+        BtnGuardar.setEnabled(true);
+        btmCancelar.setEnabled(true);
+        btnModificar.setEnabled(false);
+        IDmodificar = true; 
+        
+        
+
+    }//GEN-LAST:event_btnModificarActionPerformed
+
+    private void BtnsignoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnsignoutActionPerformed
+            Logv3.setTitle ("Inicio de Sesión");
+            Logv3.setLocationRelativeTo (null);
+            Logv3.setVisible(true);
+            dispose();
+    }//GEN-LAST:event_BtnsignoutActionPerformed
+
+    private void txtsalarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtsalarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtsalarioActionPerformed
+
+    private void txtantiguedadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtantiguedadActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtantiguedadActionPerformed
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
+            logger.log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(() -> new Principalv2().setVisible(true));
+        
+        /*Codigo aqui... creo*/
+        
+        
+    }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BtnGuardar;
+    private javax.swing.JButton BtnNuevo;
+    private javax.swing.JButton BtnPrimeroMax;
+    private javax.swing.JButton Btnsignout;
+    private java.awt.Checkbox CKSowpass2;
+    private java.awt.Checkbox CkActivo;
+    private java.awt.Checkbox CkISadmin;
+    private javax.swing.JComboBox<String> CmboxDepartamento;
+    private javax.swing.JLabel LbUsername;
+    private java.awt.TextField TxtCargo;
+    private java.awt.TextField TxtCedula;
+    private java.awt.TextField TxtCorreo;
+    private java.awt.TextField TxtDireccionemplo;
+    private java.awt.TextField TxtEmpleado;
+    private java.awt.TextField TxtHoraEntrada;
+    private java.awt.TextField TxtID_Empleado;
+    private java.awt.TextField TxtNombreUsuario;
+    private java.awt.TextField TxtTelefono;
+    private javax.swing.JButton btmCancelar;
+    private javax.swing.JButton btnAnterior;
+    private javax.swing.JButton btnModificar;
+    private javax.swing.JButton btnsiguiente;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton7;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JLabel lbcontraseña;
+    private java.awt.TextField textField1;
+    private java.awt.TextField txtantiguedad;
+    private java.awt.TextField txtcontraseña;
+    private java.awt.TextField txtsalario;
+    // End of variables declaration//GEN-END:variables
+}
