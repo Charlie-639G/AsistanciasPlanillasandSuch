@@ -63,9 +63,7 @@ public class Principal extends javax.swing.JFrame {
 
                      JPanel_Principal.revalidate();
                      JPanel_Principal.repaint();
-       
-        
-        
+
     
     }
     
@@ -274,7 +272,7 @@ public class Principal extends javax.swing.JFrame {
 
         JPanel_Informacion.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 0, 250, 540));
 
-        jLabel8.setIcon(new javax.swing.ImageIcon("C:\\Users\\HP\\Documents\\NetBeansProjects\\admin\\src\\main\\java\\Iconos\\proasist1.png")); // NOI18N
+        jLabel8.setIcon(new javax.swing.ImageIcon("C:\\Github\\AsistanciasPlanillasandSuch\\admin\\src\\main\\java\\Iconos\\proasist1.png")); // NOI18N
         JPanel_Informacion.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 260, 80));
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
@@ -363,8 +361,6 @@ public class Principal extends javax.swing.JFrame {
         JPanel_Control.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 100, 290, 440));
 
         JPanel_Control1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel17.setIcon(new javax.swing.ImageIcon("C:\\Users\\HP\\Downloads\\proasist1.png")); // NOI18N
         JPanel_Control1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 240, 80));
 
         checkbox5.setLabel("Opciones de Filtrado");
